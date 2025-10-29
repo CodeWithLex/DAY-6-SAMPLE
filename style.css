@@ -1,0 +1,375 @@
+body {
+    background-color: blanchedalmond;
+    /* relative path from index.html to the image */
+    background-image: url('images/bg.jpg');
+    background-size: cover;
+    /* scale to cover the viewport */
+    background-position: center;
+    /* center the image */
+    background-repeat: no-repeat;
+    /* don't tile */
+    background-attachment: fixed;
+    /* optional: fixed for parallax-like effect */
+    /* fallback background color while image loads */
+    background-color: #222;
+}
+
+h1 {
+    color: rgb(255, 255, 255);
+
+}
+
+.design-5 {
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+a {
+    color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    /* Added transition for smooth hover effect */
+
+    /* Additions for glow circle */
+    position: relative;
+    overflow: hidden;   /* clip glow inside button */
+    isolation: isolate; /* ensure proper blending */
+}
+
+button:hover {
+    background-color: rgb(138, 138, 138);
+    /* Change background color on hover */
+    box-shadow: 0 0 20px rgba(0, 180, 255, 0.35),
+                inset 0 0 40px rgba(0, 180, 255, 0.2);
+}
+
+/* Glow circle pseudo-element */
+button::after {
+    content: "";
+    position: absolute;
+    left: var(--x, 50%);
+    top: var(--y, 50%);
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    pointer-events: none;
+    background: radial-gradient(circle, rgba(0, 180, 255, 0.45), rgba(0, 180, 255, 0) 60%);
+    filter: blur(8px);
+    opacity: 0;
+    transition: width 300ms ease, height 300ms ease, opacity 250ms ease;
+    mix-blend-mode: screen;
+}
+button:hover::after {
+    width: 220px;
+    height: 220px;
+    opacity: 1;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    button::after {
+        transition: none;
+    }
+}
+
+p {
+    color: white;
+    font-size: 20px;
+    transition: color 0.5s ease;
+}
+
+p:hover {
+    color: yellow;
+
+}
+
+img {
+    transition: transform 200ms ease, filter 200ms ease;
+     display: block;
+  margin: 0 auto; 
+  width: 50%; 
+  object-fit: cover;
+}
+img.oncllickable {
+    cursor: pointer;
+}
+
+img.clickable {
+    cursor: pointer;
+}
+
+/* Float-up hover effect for images */
+img.hover-float,
+.hover-float img {
+    transform: translateY(0);
+    transition: transform 200ms ease, filter 200ms ease;
+}
+
+img.hover-float:hover,
+.hover-float:hover img {
+    transform: translateY(-50px);
+    filter: drop-shadow(10px 10px 20px rgb(0, 0, 0));
+}
+
+/* Respect reduced-motion user preference */
+@media (prefers-reduced-motion: reduce) {
+
+    img.hover-float,
+    .hover-float img {
+        transition: none;
+    }
+}
+:root {
+  --neon: 0, 180, 255;      /* cyan glow */
+  --accent: 255, 110, 199;  /* pink */
+  --warm: 255, 209, 102;    /* warm yellow */
+}
+
+/* Animated gradient overlay on top of your background image */
+body {
+  background-image:
+    radial-gradient(1200px 700px at 10% 10%, rgba(var(--neon), 0.18), transparent 60%),
+    radial-gradient(900px 600px at 85% 15%, rgba(var(--accent), 0.18), transparent 60%),
+    radial-gradient(900px 600px at 50% 90%, rgba(var(--warm), 0.15), transparent 60%),
+    url('images/bg.jpg');
+  background-blend-mode: screen, screen, soft-light, normal;
+  background-size: 140% 140%, 120% 120%, 160% 160%, cover;
+  background-position: 0% 0%, 100% 0%, 50% 100%, center;
+  background-attachment: fixed; /* keep your parallax-like effect */
+  animation: bg-pan 40s linear infinite;
+}
+
+@keyframes bg-pan {
+  0%   { background-position: 0% 0%, 100% 0%, 50% 100%, center; }
+  50%  { background-position: 100% 100%, 0% 100%, 50% 0%, center; }
+  100% { background-position: 0% 0%, 100% 0%, 50% 100%, center; }
+}
+
+/* Shimmer gradient headline */
+h1 {
+  background: linear-gradient(90deg,
+              rgba(var(--neon), 1) 0%,
+              rgba(var(--accent), 1) 35%,
+              rgba(var(--warm), 1) 70%,
+              rgba(var(--neon), 1) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 6s linear infinite;
+  text-shadow: 0 0 12px rgba(var(--neon), 0.25);
+}
+@keyframes shimmer { to { background-position: -200% center; } }
+
+/* Classy animated underline for links (opt-in) */
+a.fancy-link {
+  position: relative;
+  color: #eaf8ff;
+  text-decoration: none;
+}
+a.fancy-link::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -3px;
+  height: 2px;
+  width: 0;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, rgba(var(--neon),1), rgba(var(--accent),1));
+  box-shadow: 0 0 10px rgba(var(--neon), 0.6);
+  transition: width 300ms ease;
+}
+a.fancy-link:hover { color: rgb(var(--neon)); }
+a.fancy-link:hover::after { width: 70%; }
+
+/* Neon enhanced button (opt-in) */
+button.btn-creative {
+  background: #05060a;
+  color: #e6f8ff;
+  border: 1px solid rgba(var(--neon), 0.35);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.05),
+    0 8px 24px rgba(0,0,0,0.45);
+  transform: translateY(0);
+  transition: transform 200ms ease, box-shadow 200ms ease, background-color 0.2s ease;
+}
+
+/* Rotating ethereal ring around the button on hover */
+button.btn-creative::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background:
+    conic-gradient(from 0deg,
+      rgba(var(--neon), 0.0) 0deg,
+      rgba(var(--neon), 0.45) 90deg,
+      rgba(var(--neon), 0.0) 180deg,
+      rgba(var(--neon), 0.45) 270deg,
+      rgba(var(--neon), 0.0) 360deg);
+  filter: blur(14px);
+  opacity: 0;
+  transform: rotate(0deg);
+  transition: opacity 250ms ease;
+  z-index: 0;
+  pointer-events: none;
+  will-change: transform;
+}
+button.btn-creative:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 0 24px rgba(var(--neon), 0.35),
+    inset 0 0 40px rgba(var(--neon), 0.18);
+}
+button.btn-creative:hover::before {
+  opacity: 1;
+  animation: spin 6s linear infinite;
+}
+
+/* Keep your glow circle above the ring */
+button::after { z-index: 1; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Glass card style (opt-in) */
+.glass {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 16px;
+  padding: 16px 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  transition: border-color 250ms ease, box-shadow 250ms ease, transform 250ms ease;
+}
+.glass:hover {
+  border-color: rgba(var(--neon), 0.35);
+  box-shadow: 0 16px 40px rgba(0, 180, 255, 0.18);
+  transform: translateY(-6px);
+}
+
+/* Fancy highlighted text (opt-in) */
+.fancy-text {
+  color: #fff;
+  text-shadow:
+    0 0 8px rgba(var(--neon), 0.35),
+    0 0 18px rgba(var(--neon), 0.15);
+}
+
+/* Respect reduced motion for new effects */
+@media (prefers-reduced-motion: reduce) {
+  body { animation: none; }
+  h1 { animation: none; }
+  a.fancy-link::after,
+  .glass,
+  button.btn-creative {
+    transition: none;
+  }
+}
+
+/* Modal styles for image popup */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(0px);
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.5s ease-out, backdrop-filter 0.5s ease-out;
+    will-change: background-color, backdrop-filter;
+}
+
+.modal.show {
+    background-color: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+}
+
+.modal-content {
+    position: relative;
+    padding: 50px 70px;
+    max-width: 500px;
+    opacity: 0;
+    transform: scale(0.3) translateY(100px) translateZ(0);
+    transition: opacity 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28),
+                transform 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+.modal.show .modal-content {
+    opacity: 1;
+    transform: scale(1) translateY(0) translateZ(0);
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 36px;
+    font-weight: bold;
+    color: rgba(var(--neon), 1);
+    cursor: pointer;
+    transition: color 0.3s ease, 
+                text-shadow 0.3s ease,
+                transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    line-height: 1;
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.close-modal:hover {
+    color: rgba(var(--accent), 1);
+    text-shadow: 0 0 12px rgba(var(--accent), 0.6);
+    transform: rotate(90deg) scale(1.2) translateZ(0);
+}
+
+.modal-text {
+    font-size: 32px;
+    text-align: center;
+    margin: 0;
+    font-family: 'Franklin Gothic Medium', Arial, sans-serif;
+    letter-spacing: 1px;
+    opacity: 0;
+    transform: translateY(20px) translateZ(0);
+    transition: opacity 0.4s ease 0.2s, transform 0.4s ease 0.2s;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+}
+
+.modal.show .modal-text {
+    opacity: 1;
+    transform: translateY(0) translateZ(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .modal,
+    .modal-content,
+    .modal-text,
+    .close-modal {
+        transition: none;
+        will-change: auto;
+    }
+    .modal-content {
+        filter: none;
+    }
+}

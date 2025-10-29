@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 6 of Web Development Project</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Button glow effect
+    document.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('mousemove', e => {
+        const r = btn.getBoundingClientRect();
+        btn.style.setProperty('--x', `${e.clientX - r.left}px`);
+        btn.style.setProperty('--y', `${e.clientY - r.top}px`);
+      });
+    });
+
+    // Image click event - popup modal with smooth animation
+    const clickableImg = document.querySelector('img.clickable');
+    const modal = document.getElementById('imageModal');
+    const closeBtn = document.querySelector('.close-modal');
+
+    clickableImg.addEventListener('click', () => {
+      modal.style.display = 'flex';
+      // Force reflow to ensure transition works
+      modal.offsetHeight;
+      modal.classList.add('show');
+    });
+
+    function closeModal() {
+      modal.classList.remove('show');
+      setTimeout(() => {
+        modal.style.display = 'none';
+      }, 500); // Match transition duration
+    }
+
+    closeBtn.addEventListener('click', closeModal);
+
+    // Close modal when clicking outside the box
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+  });
+</script>
+<body>
+    <h1
+        style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; text-align: center;">
+        This is Day 6 of Web Development Project</h1> <!-- Heading for Day 5 -->
+    <br>
+    <br>
+    <a href="https://www.w3schools.com/html/" title="Go to W3Schools HTML section">Where I learn HTML and CSS</a>
+    <!-- link title na muadto sa html tutorial-->
+    <br>
+    <button onclick="window.location.href='https://github.com/CodeWithLex'">My Github Account</button>
+    <!--a button na naay link-->
+   <img src="images/my face.png" alt="Smiley face" class="hover-float clickable" style="width:500px;height:400px;">
+
+<div class="design-5">
+    <h1 >This is Day 6 of Web Development Project</h1>
+</div>
+<div class="design-5">
+    <h1 >SHESH!</h1>
+</div>
+
+<!-- Modal for image click -->
+<div id="imageModal" class="modal">
+  <div class="modal-content glass">
+    <span class="close-modal">&times;</span>
+    <p class="modal-text fancy-text">Hi, I am Lex!</p>
+  </div>
+</div>
+
+</body>
+
+</html>
